@@ -1,0 +1,61 @@
+<div class="container">
+    <div class="register-header">
+        <h3>Forma za evidenciju inventure</h3>
+    </div>
+    <div class="login-form">
+        <form>
+            <div *ngIf="inventoryLog.createdBy || inventoryLog.createdDate">
+                <div class="form-group">
+                    <label class="form-label" for="username">Kreirao</label>
+                    <input type="text" id="firstName" class="form-control" name="firstName"
+                        [(ngModel)]="inventoryLog.createdBy" />
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="lastName">Datum kreiranja</label>
+                    <input type="text" id="lastName" class="form-control" name="lastName"
+                        [(ngModel)]="inventoryLog.createdDate" />
+                </div>
+            </div>
+
+            <div class="list-group-container">
+                <ul class="list-group" *ngFor="let item of inventoryLog.inventoryCarPartLogs">
+                    <li class="list-group-item">Naziv: {{item.carPart?.name}}; Količina: {{item.numberOfParts}}</li>
+                </ul>
+                <li class="list-group-item">
+                    <div class="row g-2">
+                        <div class="col-md">
+                            <div class="form-floating">
+                                <select class="form-select" aria-label="Floating label select example" name="carPartId"
+                                    id="carPart" class="form-select" [(ngModel)]="newInventoryCarPart.carPartId">
+                                    <option *ngFor="let model of carParts" [value]="model.carPartId">{{
+                                        model.name }}
+                                        {{model.details}}
+                                    </option>
+                                </select>
+                                <label for="floatingSelectGrid">Odaberite dio</label>
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="form-floating">
+                                <input type="number" class="form-control" id="warehouseCount" name="numberOfParts"
+                                    [(ngModel)]="newInventoryCarPart.numberOfParts">
+                                <label for="floatingInputGrid">Unesite količinu unosa</label>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <div class="form-group button-container">
+                    <button (click)="createNewInventoryCarPartLog()">+</button>
+                </div>
+            </div>
+
+
+            <div class="form-group create">
+                <button (click)="createInventoryLog()">Kreiraj novi unos</button>
+            </div>
+
+
+
+        </form>
+    </div>
+</div>

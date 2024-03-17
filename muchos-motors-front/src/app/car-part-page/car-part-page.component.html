@@ -1,0 +1,100 @@
+<div class="button-container">
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter"
+        (click)="showModal()">
+        Kreiraj novi unos
+    </button>
+</div>
+<div *ngIf="modalVisible" class="modal fade show" id="exampleModalLive" tabindex="-1"
+    aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLiveLabel"></h1>
+                <button class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <label class="form-label"> ID: </label>
+                    <input class="form-control" disabled [(ngModel)]="selectedCarPart!.carPartId">
+                </div>
+                <div>
+                    <label class="form-label"> Šifra: </label>
+                    <input class="form-control" [(ngModel)]="selectedCarPart!.code">
+                </div>
+
+                <div>
+                    <label class="form-label"> Naziv: </label>
+                    <input class="form-control" [(ngModel)]="selectedCarPart!.name">
+                </div>
+                <div>
+                    <label class="form-label">Detalji: </label>
+                    <input class="form-control" [(ngModel)]="selectedCarPart!.details">
+                </div>
+
+                <div>
+                    <label class="form-label">Količina na skladištu:</label>
+                    <input type="number" class="form-control" [(ngModel)]="selectedCarPart!.warehouseCount"
+                        disabled="true">
+                </div>
+
+                <div>
+                    <label class="form-label">Prodajna cijena: </label>
+                    <input type="number" class="form-control" [(ngModel)]="selectedCarPart!.sellingPrice">
+                </div>
+
+                <div>
+                    <label class="form-label">Kupovna cijena:</label>
+                    <input type="number" class="form-control" [(ngModel)]="selectedCarPart!.purchasePrice">
+                </div>
+
+                <div>
+                    <label for="form-label">Kategorija</label>
+                    <select class="form-select" aria-label="Floating label select example" name="carPartId" id="carPart"
+                        class="form-select" [(ngModel)]="selectedCarPart!.carPartCategory">
+                        <option *ngFor="let category of carPartCategories">
+                            {{ category }}
+                        </option>
+                    </select>
+                </div>
+                <div>
+                    <label for="form-label">Slika artikla</label>
+                    <input class="form-control" id="slika-input" type="file" accept="image/*"
+                        (change)="generatePreview()">
+                    <img style="max-width: 100%; height: 200px" src="{{this.selectedCarPart!.base64Image}}">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                    (click)="closeModal()">Zatvori</button>
+                <button type="button" class="btn btn-primary"
+                    (click)="selectedCarPart?.carPartId ? updateCarPart() : createCarPart()">Snimi izmjene</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<table class="table table-striped container">
+    <thead>
+        <tr>
+            <th>Šifra</th>
+            <th>Naziv</th>
+            <th>Prodajna cijena</th>
+            <th>Količina na stanju</th>
+            <th>Kategorija</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of pagedList?.itemList">
+            <td>{{ item.code }}</td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.sellingPrice }}</td>
+            <td>{{ item.warehouseCount }}</td>
+            <td>{{ item.carPartCategory }}</td>
+            <td>
+                <button class="details" (click)="showModal(item)">Detalji</button>
+                <button class="invalidate" (click)="invalidateInventoryLog(item.carPartId)">Invalidiraj</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<app-paginator-footer [pagedList]="pagedList" (onPageChange)="handlePageChange($event)"></app-paginator-footer>

@@ -1,0 +1,30 @@
+<header>
+    <div class="container">
+        <div class="main-menu">
+            <a href="#" routerLink="/" class="logo">Muchos Motors</a>
+        </div>
+        <nav>
+            <ul>
+                <span class="left-align">
+                    <span *ngIf="!authService.isLoggedIn || authService.isCustomer">
+                        <li><a href="#" routerLink="/" class="menu-item">Prodavnica</a></li>
+                        <li><a href="#" routerLink="/appointment-page" class="menu-item">Termini</a></li>
+                    </span>
+                    <span *ngIf="authService.isEmployee">
+                        <li><a href="#" routerLink="/inventory-page" class="menu-item">Evidencija inventara</a></li>
+                        <li><a href="#" routerLink="/car-part-page" class="menu-item">Evidencija autodijelova</a></li>
+                        <li><a href="#" routerLink="/order-page" class="menu-item">Evidencija narudžbi</a></li>
+                    </span>
+                </span>
+                <span class="right-align">
+                    <li *ngIf="!authService.isLoggedIn || authService.isCustomer">
+                        <a routerLink="/cart-page" class="menu-item ">Korpa</a>
+                    </li>
+                    <li *ngIf="!authService.isLoggedIn"><a href="#" routerLink="/login-page"
+                            class="menu-item">Prijava</a></li>
+                    <li *ngIf="authService.isLoggedIn"><a href="#" (click)="logout()" class="menu-item">Odjava</a></li>
+                </span>
+            </ul>
+        </nav>
+    </div>
+</header>

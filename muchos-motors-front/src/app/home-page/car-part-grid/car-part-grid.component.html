@@ -1,0 +1,15 @@
+<ul>
+    <li *ngFor="let carPart of pagedList?.itemList">
+        <a routerLink="/car-part-order-page/{{carPart.carPartId}}">
+            <img [src]="getImageUrl(carPart.carPartId)" alt="{{carPart.name}}">
+            <div class="content">
+                <div class="name">{{carPart.name}}</div>
+                <div class="count-and-price">
+                    <span>Dostupno: {{carPart.warehouseCount}}</span>
+                    <span class="price">{{carPart.sellingPrice|currency}}</span>
+                </div>
+            </div>
+
+        </a>
+    </li>
+</ul>

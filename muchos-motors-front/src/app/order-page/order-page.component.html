@@ -1,0 +1,31 @@
+<div class="button-container">
+    <button [routerLink]="['/order-details-page/']">Kreiraj novi unos</button>
+</div>
+
+<table class="table table-striped container">
+    <thead>
+        <tr>
+            <th>Kupac</th>
+            <th>Adresa</th>
+            <th>Grad</th>
+            <th>Datum narudžbe</th>
+            <th>Datum pošiljke</th>
+            <th>Kreirana faktura</th>
+            <th>Validan zapis</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of orders">
+            <td>{{ item.customerFirstName}} {{ item.customerLastName}}</td>
+            <td>{{ item.customerShippingAddress }}</td>
+            <td>{{ item.customerShippingCity }}</td>
+            <td>{{ item.orderDate | date }}</td>
+            <td>{{ item.shippingDate | date }}</td>
+            <td>{{ item.invoiceCreated ? 'Da' : 'Ne' }}</td>
+            <td>
+                <button class="details" [routerLink]="['/order-details-page/', item.orderId]">Detalji</button>
+                <button class="invalidate" (click)="invalidateOrderLog(item)">Invalidiraj</button>
+            </td>
+        </tr>
+    </tbody>
+</table>

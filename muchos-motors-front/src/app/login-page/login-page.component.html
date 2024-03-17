@@ -1,0 +1,37 @@
+<div class="container">
+    <div class="login-header">
+        <h3>Prijavite se</h3>
+    </div>
+    <div class="login-form">
+        <form>
+            <div class="form-group">
+                <label class="form-label" for="username">Korisničko ime</label>
+                <input type="text" id="username" class="form-control" name="username"
+                    [(ngModel)]="userLoginInfo.username" />
+
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="password">Lozinka</label>
+                <input type="password" id="password" class="form-control" name="password"
+                    [(ngModel)]="userLoginInfo.password" />
+            </div>
+            <!-- 
+            <div class="form-group">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="form2Example31" checked />
+                    <label class="form-check-label" for="form2Example31"> Zapamti me </label>
+                </div>
+                <div><a href="#!">Zaboravljena lozinka?</a></div>
+            </div> -->
+
+            <div class="form-group login">
+                <button (click)="signIn()">Prijava</button>
+            </div>
+
+            <div class="form-group">
+                <p>Niste član? <a href="#" routerLink="/registration-page">Registrujte se</a></p>
+            </div>
+        </form>
+    </div>
+</div>

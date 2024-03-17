@@ -1,0 +1,13 @@
+<div *ngIf="authService.isCustomer || !authService.isLoggedIn">
+    <app-search></app-search>
+    <div class="home-page">
+        <div class="filter-content">
+            <app-filter-card (onSearchCarPartsWithFilter)="handleSearchCarPartsWithFilter($event)"></app-filter-card>
+        </div>
+        <div class="main-content">
+            <app-not-found [visible]="!pagedList?.itemList" resetlLinkText="Reset Search"></app-not-found>
+            <app-car-part-grid [pagedList]="pagedList"></app-car-part-grid>
+        </div>
+    </div>
+    <app-paginator-footer [pagedList]="pagedList" (onPageChange)="handlePageChange($event)"></app-paginator-footer>
+</div>

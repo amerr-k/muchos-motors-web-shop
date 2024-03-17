@@ -1,0 +1,143 @@
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+
+steps:
+
+#- script: |
+#    dotnet tool install --global dotnet-ef --version 5.*
+#  displayName: 'Install dotnet-ef tool'
+
+- task: UseDotNet@2
+  inputs:
+    packageType: 'sdk'
+    version: '5.x'
+    installationPath: $(Agent.ToolsDirectory)/dotnet
+    includePreviewVersions: true
+    performMultiLevelLookup: true
+    additionalEnvironmentVariables: 'DOTNET_ROOT=$(Agent.ToolsDirectory)/dotnet'
+
+- task: DotNetCoreCLI@2
+  displayName: '.NET Restore'
+  inputs:
+    command: 'restore'
+    projects: '$(System.DefaultWorkingDirectory)/muchos-motors/muchos-motors-api/*.csproj'
+    feedsToUse: 'select'
+    noCache: true
+
+- task: DotNetCoreCLI@2
+  displayName: '.NET Build'
+  inputs:
+    command: 'build'
+    projects: '$(System.DefaultWorkingDirectory)/muchos-motors/muchos-motors-api/*.csproj'
+    arguments: '--configuration $(buildConfiguration)'
+    version: '5.x'
+
+- task: DotNetCoreCLI@2
+  displayName: '.NET Publish'
+  inputs:
+    command: 'publish'
+    publishWebProjects: true
+    projects: '$(System.DefaultWorkingDirectory)/muchos-motors/muchos-motors-api/*.csproj'
+    arguments: '--configuration $(buildConfiguration) --output $(build.artifactstagingdirectory)/dotnet-core-app'
+    zipAfterPublish: false
+
+- script: |
+    ls -R $(build.artifactstagingdirectory)/dotnet-core-app
+  displayName: 'List Contents of dotnet-core-app Directory'
+
+- script: ls -R $(build.artifactstagingdirectory)
+  displayName: 'List Build Artifacts'
+
+- script: |
+    ls -R $(System.DefaultWorkingDirectory)/muchos-motors/muchos-motors-api
+  displayName: 'List Contents of Published Directory'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathtoPublish: '$(build.ArtifactStagingDirectory)/dotnet-core-app'
+    artifactName: 'dotnet-core-app'
+    publishLocation: 'Container'
+    retentionDays: 0
+
+- script: |
+    ls -R $(build.artifactstagingdirectory)/dotnet-core-app
+  displayName: 'List Contents of dotnet-core-app Directory'
+
+- script: ls -R $(build.artifactstagingdirectory)
+  displayName: 'List Build Artifacts'
+
+#- task: DotNetCoreCLI@2
+#  displayName: 'Run EF Core Migrations'
+#  inputs:
+#    command: 'custom'
+#    custom: 'ef'
+#    arguments: 'database update'
+#    projects: '$(System.DefaultWorkingDirectory)/muchos-motors/muchos-motors-api/*.csproj'
+#    workingDirectory: '$(System.DefaultWorkingDirectory)/muchos-motors/muchos-motors-api'
+#    verbosity: 'Diagnostic'
+
+- task: NodeTool@0
+  inputs:
+    versionSpec: '20.x'
+    displayName: 'Install Node.js'
+
+- script: |
+    cd '$(System.DefaultWorkingDirectory)/muchos-motors-front'
+    npm install
+    npm run build
+  displayName: 'Build Angular App'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathtoPublish: '$(System.DefaultWorkingDirectory)/muchos-motors-front/dist'
+    artifactName: 'angular-app'
+    publishLocation: 'Container'
+    retentionDays: 0
+
+- script: |
+    ls -R $(System.DefaultWorkingDirectory)
+  displayName: 'List Contents of dist Directory'
+
+- script: ls -R $(build.artifactstagingdirectory)
+  displayName: 'List Build Artifacts'
+
+- task: FtpUpload@2
+  displayName: 'FTP Upload .NET Core App'
+  inputs:
+    credentialsOption: 'inputs'
+    serverUrl: 'ftp://muchos-motors-api.p1824.app.fit.ba'
+    username: 'p1824'
+    password: 'bRBUXP4!'
+    rootDirectory: '$(build.artifactstagingdirectory)/dotnet-core-app/muchos-motors-api'
+    filePatterns: '**'
+    remoteDirectory: '/muchos-motors-api.p1824.app.fit.ba'
+    clean: false
+    cleanContents: true
+    preservePaths: true
+    trustSSL: false
+    passiveMode: true
+
+- task: FtpUpload@2
+  displayName: 'FTP Upload Angular App'
+  inputs:
+    credentialsOption: 'inputs'
+    serverUrl: 'ftp://muchos-motors-web.p1824.app.fit.ba'
+    username: 'p1824'
+    password: 'bRBUXP4!'
+    rootDirectory: 'muchos-motors-front/dist/muchos-motors-front/browser'
+    filePatterns: '**'
+    remoteDirectory: '/muchos-motors-web.p1824.app.fit.ba'
+    clean: false
+    cleanContents: true
+    preservePaths: true
+    trustSSL: false
+
+
+### test

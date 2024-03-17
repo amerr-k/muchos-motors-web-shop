@@ -1,0 +1,16 @@
+<app-not-found [visible]="!carPart" notFoundMessage="Product not found"
+    resetlLinkText="Back to the Home page"></app-not-found>
+<div *ngIf="carPart" class="container">
+    <img src="{{baseUrl}}/images/car-part?carPartId={{carPart.carPartId}}" alt="{{carPart.name}}">
+    <div class="details">
+        <div class="header">
+            <span class="name">{{carPart.name}}</span>
+            <span class="code">Sifra proizvoda: {{carPart.code}}</span>
+        </div>
+        <div class="car-details">{{carPart.details}}</div>
+        <div class="warehouse-count">Dostupno: {{carPart.warehouseCount}}</div>
+        <div class="category">Kategorija: {{carPart.carPartCategory}}</div>
+        <div class="price"><span>Cijena:</span> {{carPart.sellingPrice|currency}}</div>
+        <button (click)="addToCart()">Dodaj u korpu</button>
+    </div>
+</div>

@@ -1,0 +1,54 @@
+<div class="container">
+    <div class="register-header">
+        <h3>Registracija</h3>
+    </div>
+    <div class="login-form">
+        <form>
+            <div class="form-group">
+                <label class="form-label" for="username">Ime</label>
+                <input type="text" id="firstName" class="form-control" name="firstName"
+                    [(ngModel)]="customer.firstName" />
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="lastName">Prezime</label>
+                <input type="text" id="lastName" class="form-control" name="lastName" [(ngModel)]="customer.lastName" />
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="email">Email</label>
+                <input type="email" id="email" class="form-control" name="email" [(ngModel)]="customer.email" />
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="email">Username</label>
+                <input type="text" id="username" class="form-control" name="username" [(ngModel)]="customer.username" />
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="password">Lozinka</label>
+                <input type="password" id="password" class="form-control" name="password"
+                    [(ngModel)]="customer.password" />
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="repeatedPassword">Ponovite lozinku</label>
+                <input type="password" id="repeatedPassword" class="form-control" name="repeatedPassword"
+                    [(ngModel)]="customer.repeatedPassword" />
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="phone">Broj telefona</label>
+                <input type="text" id="phone" class="form-control" name="phone" [(ngModel)]="customer.phone" />
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="address">Adresa</label>
+                <input type="text" id="address" class="form-control" name="address" [(ngModel)]="customer.address" />
+            </div>
+            <div class="form-group">
+                <label for="city">Grad</label>
+                <select class="form-select" [(ngModel)]="customer.cityId" name="cityId">
+                    <option *ngFor="let city of cities" [value]="city.cityId">{{city.name}}</option>
+                </select>
+            </div>
+            <div class="form-group register">
+                <button (click)="register()">Registrujte se</button>
+            </div>
+
+        </form>
+    </div>
+</div>

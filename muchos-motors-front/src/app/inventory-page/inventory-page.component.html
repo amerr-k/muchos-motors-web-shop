@@ -1,0 +1,26 @@
+<div class="button-container">
+    <button [routerLink]="['/inventory-details-page/0']">Kreiraj novi unos</button>
+</div>
+
+<table class="table table-striped container">
+    <thead>
+        <tr>
+            <th>Datum kreiranja</th>
+            <th>Kreirao</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of inventoryLogs">
+            <td>{{ item.createdDate | date}}</td>
+            <td>{{ item.createdBy }}</td>
+            <td>{{ item.isValid ? 'Validan' : 'Nevalidan' }}</td>
+            <td>
+                <button class="details"
+                    [routerLink]="['/inventory-details-page/', item.inventoryLogId]">Detalji</button>
+                <button class="invalidate" (click)="invalidateInventoryLog(item)">Invalidiraj</button>
+            </td>
+        </tr>
+    </tbody>
+</table>

@@ -1,0 +1,91 @@
+<div class="container">
+    <div class="register-header">
+        <h3>Forma za evidenciju narudžbe</h3>
+    </div>
+    <div class="login-form">
+        <form>
+            <div class="form-group">
+                <label class="form-label" for="customerFirstName">Ime kupca</label>
+                <input type="text" id="firstName" class="form-control" name="customerFirstName"
+                    [(ngModel)]="order.customerFirstName" />
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="customerLastName">Prezime kupca</label>
+                <input type="text" id="customerLastName" class="form-control" name="customerLastName"
+                    [(ngModel)]="order.customerLastName" />
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="customerPhone">Telefon</label>
+                <input type="text" id="customerPhone" class="form-control" name="customerPhone"
+                    [(ngModel)]="order.customerPhone" />
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="customerShippingAddress">Adresa</label>
+                <input type="text" id="customerShippingAddress" class="form-control" name="customerShippingAddress"
+                    [(ngModel)]="order.customerShippingAddress" />
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="customerShippingCity">Grad</label>
+                <input type="text" id="customerShippingCity" class="form-control" name="customerShippingCity"
+                    [value]="order.customerShippingCity?.name" />
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="orderDate">Datum narudzbe</label>
+                <mat-form-field class="form-control">
+                    <input id="orderDate" disabled name="orderDate" matInput [matDatepicker]="picker1"
+                        [(ngModel)]="order.orderDate">
+                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="shippingDate">Datum isporuke</label>
+                <mat-form-field class="form-control">
+                    <input id="shippingDate" name="shippingDate" matInput [matDatepicker]="picker"
+                        [(ngModel)]="order.shippingDate">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <label class="form-label" for="shippingDate">Naručeni dijelovi</label>
+            <div class="list-group-container">
+                <ul class="list-group">
+                    <li class="list-group-item" *ngFor="let item of order.orderItems">
+                        <div class="row g-2">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label" for="customerPhone">Naziv</label>
+                                    <input type="text" id="customerPhone" class="form-control" name="customerPhone"
+                                        [value]="item.carPart.name" />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label" for="customerShippingAddress">Količina</label>
+                                    <input type="text" id="customerShippingAddress" class="form-control"
+                                        name="customerShippingAddress" [value]="item.quantity" />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label" for="customerShippingCity">Cijena</label>
+                                    <input type="text" id="customerShippingCity" class="form-control"
+                                        name="customerShippingCity" [value]="item.price" />
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="username">Ukupna cijena</label>
+                <input type="text" id="firstName" class="form-control" name="firstName"
+                    [(ngModel)]="order.totalPrice" />
+            </div>
+            <div class="form-group create">
+                <button (click)="updateOrderDetails()">Evidentiraj narudzbu</button>
+            </div>
+        </form>
+    </div>
+</div>

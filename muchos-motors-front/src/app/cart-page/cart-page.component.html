@@ -1,0 +1,38 @@
+<app-not-found [visible]="!cart || cart.items.length <=0" notFoundMessage="Korpa je prazna!"
+    resetlLinkText="Go to homepage"></app-not-found>
+<div *ngIf="cart && cart.items.length>0" class="container">
+    <ul>
+        <li *ngFor="let carItem of cart.items">
+            <div>
+                <img src="{{baseUrl}}/images/car-part?id={{carItem.carPart.carPartId}}" alt="{{carItem.carPart.name}}">
+            </div>
+            <div>
+                <a routerLink="/car-part-page/{{carItem.carPart.carPartId}}">
+                    {{carItem.carPart.name}}</a>
+            </div>
+            <div>
+                <select #quantitySelect (change)="changeQuantity(carItem, quantitySelect.value)">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                </select>
+            </div>
+            <div>
+                {{carItem.price | currency}}
+            </div>
+            <div>
+                <button class="remove-button" (click)="removeFromCart(carItem)">Izbriši</button>
+            </div>
+        </li>
+    </ul>
+
+    <div class="checkout">
+        <div>
+            <div class="car-parts-count">{{cart.items.length}}</div>
+            <div class="total-price">{{cart.totalPrice | currency}}</div>
+        </div>
+        <button routerLink="/checkout-page">Nastavi sa kupovinom</button>
+    </div>
+</div>

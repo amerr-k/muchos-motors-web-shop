@@ -1,0 +1,18 @@
+<div class="filter-inside">
+    <div class="filter-title">Filteri</div>
+    <div class="filter-item">
+        <label for="carBrand">Marka vozila</label>
+        <select name="carBrand" id="carBrand" class="custom-select" [(ngModel)]="selectedCarBrandId">
+            <option *ngFor="let brand of carBrands" [value]="brand.carBrandId">{{ brand.name }}</option>
+        </select>
+    </div>
+    <div class="filter-item">
+        <label for="carModel">Model vozila</label>
+        <select name="carModel" id="carModel" class="custom-select" [(ngModel)]="selectedGenericCarModelId">
+            <option *ngFor="let model of genericCarModels" [value]="model.genericCarModelId">{{ model.modelName }}
+                {{model.generationName}}
+            </option>
+        </select>
+    </div>
+    <button class="search-button" (click)="searchCarPartsWithFilter()">Traži</button>
+</div>

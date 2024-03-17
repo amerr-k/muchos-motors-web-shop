@@ -1,0 +1,50 @@
+<div class="checkout-container">
+    <div class="checkout-form" *ngIf="cart.items.length > 0">
+        <h3>Informacije o dostavi</h3>
+        <form>
+            <div class="input-group lg-5">
+                <div class="form-group col-lg-6">
+                    <label for="customerFirstName">Ime:</label>
+                    <input type="text" class="form-control" id="customerFirstName" placeholder="Unesite vaše ime"
+                        [(ngModel)]="order.customerFirstName" name="customerFirstName" required>
+                </div>
+                <div class="form-group col-lg-6">
+                    <label for="customerLastName">Prezime:</label>
+                    <input type="text" class="form-control" id="customerLastName" placeholder="Unesite vaše prezime"
+                        [(ngModel)]="order.customerLastName" name="customerLastName" required>
+                </div>
+            </div>
+            <div class="form-group ">
+                <label for="customerEmail">E-mail:</label>
+                <input type="email" id="customerEmail" class="form-control" placeholder="Unesite e-mail"
+                    [(ngModel)]="order.customerEmail" name="customerEmail" required>
+            </div>
+            <div class="form-group">
+                <label for="customerShippingAddress">Adresa dostave:</label>
+                <input type="text" id="address" class="form-control" placeholder="Unesite vašu adresu"
+                    [(ngModel)]="order.customerShippingAddress" name="customerShippingAddress" required>
+            </div>
+            <div class="form-group">
+                <label for="customerShippingCity">Grad</label>
+                <select class="form-select" [(ngModel)]="order.customerShippingCityId" name="customerShippingCity"
+                    placeholder="Odaberite vaš grad">
+                    <option *ngFor="let city of cities" [value]="city.cityId">{{city.name}}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="customerPhone">Kontakt broj:</label>
+                <input type="text" id="customerPhone" class="form-control" placeholder="Unesite vaš broj telefona"
+                    [(ngModel)]="order.customerPhone" name="customerPhone" required>
+            </div>
+            <button (click)="createOrder()">Naruči</button>
+        </form>
+    </div>
+
+    <div class="checkout-summary">
+        <h3>Informacije o narudžbi</h3>
+        <div>
+            <div class="car-parts-count">{{cart.items.length}}</div>
+            <div class="total-price">{{cart.totalPrice | currency}}</div>
+        </div>
+    </div>
+</div>

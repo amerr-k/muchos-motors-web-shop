@@ -1,0 +1,72 @@
+.checkout-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  margin: 1.5rem;
+}
+
+.checkout-form {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 2;
+}
+
+.checkout-form form div {
+  margin: 1rem 0;
+}
+
+.checkout-summary {
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 20rem;
+  border: 1px solid #29abe7;
+  padding: 0.5rem;
+  margin: 0.5rem;
+  flex-grow: 1;
+}
+
+.checkout-summary > div {
+  font-size: 1.4rem;
+  margin: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.checkout-summary .car-parts-count {
+  margin-bottom: 1.5rem;
+}
+
+.checkout-summary .car-parts-count::before {
+  content: "Količina: ";
+  color: gray;
+}
+
+.checkout-summary .total-price::before {
+  content: "Cijena: ";
+  color: gray;
+}
+
+.checkout-form button {
+  border-radius: 1rem;
+  border: none;
+  padding: 0.5rem 2rem;
+  color: white;
+  opacity: 0.7;
+  outline: none;
+  font-size: 1rem;
+  background-color: #29abe7;
+}
+
+.checkout-form button:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.input-group :first-child {
+  padding-right: 1rem;
+}

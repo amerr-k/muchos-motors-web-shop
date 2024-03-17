@@ -1,0 +1,50 @@
+ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  list-style-type: none;
+  padding: 0;
+}
+
+ul li a {
+  height: 20rem;
+  width: 20rem;
+  border: 1px solid whitesmoke;
+  border-radius: 1rem;
+  margin: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  color: #29abe7;
+}
+
+ul li a img {
+  height: 15rem;
+}
+
+li a:hover {
+  opacity: 0.9;
+  cursor: pointer;
+}
+
+.content {
+  padding: 0.5rem 1rem;
+  position: relative;
+}
+
+.name {
+  font-size: 1rem;
+}
+
+.count-and-price {
+  font-size: 0.7rem;
+  padding-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.price {
+  color: #414141;
+  font-size: 1.1rem;
+}
