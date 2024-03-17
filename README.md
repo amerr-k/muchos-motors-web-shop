@@ -1,4 +1,4 @@
-#Web Shop Muchos Motors
+# Web Shop Muchos Motors
 Web shop Muchos Motors je web aplikacija za naručivanje auto-dijelova i termina. Osim navedenih funkcionalnosti, ova aplikacija omogućava zaposlenicima Muchos Motors-a uvid u rad kompanije. Oni mogu pregledati narudžbe, evidentirati ih, kreirati fakture na osnovu njih, evidentirati nove auto-dijelove i voditi brigu o trenutnom stanju unesenih auto-dijelova i inventara.
 
 ##Opće funkcionalnosti
